@@ -151,6 +151,11 @@ impl Config {
         // also no debugging libraries in this.
         // https://github.com/mcgoo/vcpkg-rs/blob/master/src/lib.rs#L1206-L1229
         // https://doc.rust-lang.org/cargo/reference/build-scripts.html
+        // https://doc.rust-lang.org/cargo/reference/environment-variables.html#environment-variables-cargo-sets-for-build-scripts
+        let mut name = self.name.clone();
+        if env("CARGO_CFG_WINDOWS").is_some() {
+            name = name.strip_prefix("lib").unwrap().to_owned();
+        }
         println!("cargo:rustc-link-lib={}", self.name);
         println!("cargo:rustc-link-search=native={}", lib.display());
         println!("cargo:include={}", include.display());
