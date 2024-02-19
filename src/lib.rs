@@ -6,7 +6,7 @@ use std::{
     path::{Path, PathBuf},
 };
 
-struct Config {
+pub struct Config {
     name: String,
     target: Option<String>,
     host: Option<String>,
